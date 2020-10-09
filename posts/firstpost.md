@@ -1,29 +1,31 @@
 ---
-title: This is my first post test
+title: MySQL commands for common WordPress tasks
 description: This is a post on My Blog about agile frameworks.
-date: 2018-08-17T23:00:00.000Z
+date: 2020-10-09T21:58:56.881Z
 tags:
   - another-tag
 layout: layouts/post.njk
 tag:
-  - netlify
-  - tag 2
+  - mysql
+  - wordpress
 ---
-Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
+Some handy SQL commands
 
-Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.
+## Find specific meta key for posts
 
-## Section Header
+``` sql
+SELECT wp_12_posts.ID, wp_12_posts.post_name, wp_12_posts.post_type, wp_12_posts.post_title, wp_12_postmeta.meta_value 
+FROM wp_12_posts, wp_12_postmeta
+WHERE wp_12_postmeta.post_id = wp_12_posts.id AND meta_key = 'reference_id'
+ORDER BY wp_12_posts.ID;
+```
 
-Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital divide with additional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the loop on focusing solely on the bottom line.
+## Find a string
+Find a string in post content, and print out some other useful table columns along with it
 
-``` text/2-3
-// this is a command
-function myCommand() {
-	let counter = 0;
-	counter++;
-}
-
-// Test with a line break above this line.
-console.log('Test');
+``` sql
+SELECT wp_12_posts.ID, wp_12_posts.post_name, wp_12_posts.post_type, wp_12_posts.post_title, wp_12_posts.post_content
+FROM wp_12_posts
+WHERE wp_12_posts.post_content LIKE '%words to find%'
+ORDER BY wp_12_posts.ID;
 ```
